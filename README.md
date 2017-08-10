@@ -4,3 +4,5 @@ This module has been created to remediate a common problem with Direct Access se
 * Get-DaDatabaseIndexStatus
 * Add-DaDatabaseIndex
 * Remove-DaDatabaseIndex
+
+> Detailed documentation can be found at [ReadTheDocs](http://fixdadatabase.readthedocs.io/en/latest/)
