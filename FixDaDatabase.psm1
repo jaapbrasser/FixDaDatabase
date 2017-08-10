@@ -6,12 +6,15 @@ Checks if the Direct Access Database has the index
 .DESCRIPTION
 This function connects to the Windows internal database in order to establish if the missing index that can cause high cpu load on the Server 2012R2 Direct Access server.
 
+.PARAMETER ConnectionTimeout
+This parameter indicates the timeout in seconds while trying to establish a connection before terminating the attempt and generating an error.
+
 .NOTES   
 Name:        Get-DaDatabaseIndexStatus
 Author:      Jaap Brasser
-Version:     1.0.0
+Version:     1.1.0
 DateCreated: 2016-04-25
-DateUpdated: 2016-04-25
+DateUpdated: 2016-08-09
 Blog:        http://www.jaapbrasser.com
 
 .EXAMPLE
@@ -19,13 +22,28 @@ Get-DaDatabaseIndexStatus
 
 Description:
 Will retrieve the status of the index and the local computer name
+
+.EXAMPLE
+Get-DaDatabaseIndexStatus -ConnectionTimeout 600
+
+Description:
+Will retrieve the status of the index and the local computer name and set the timeout to ten minutes. This gives the server more time to complete the request.
 #>
-    [cmdletbinding(SupportsShouldProcess=$true)]
-    param()
+
+[cmdletbinding(SupportsShouldProcess=$true)]
+    param(
+        [int] $ConnectionTimeout
+    )
 
     process {
         $ConnectionString = 'Server=np:\\.\pipe\MICROSOFT##WID\tsql\query;Integrated Security=True;Initial Catalog=RaAcctDb;'
+        
+        if ($ConnectionTimeout) {
+            $ConnectionString = $ConnectionString -replace ';$',";Connection Timeout=$ConnectionTimeout;"
+        }
+        
         Write-Verbose "Connecting using: '$ConnectionString'"
+
         if ($PSCmdlet.ShouldProcess('.','Querying internal database')) {
             try {
                 $Connection = New-Object System.Data.SqlClient.SqlConnection
@@ -71,12 +89,15 @@ Checks if the Direct Access Database has the index
 .DESCRIPTION
 This function connects to the Windows internal database in order to create the missing index. This can resolve high cpu load issues on the Server 2012R2 Direct Access server.
 
+.PARAMETER ConnectionTimeout
+This parameter indicates the timeout in seconds while trying to establish a connection before terminating the attempt and generating an error.
+
 .NOTES   
 Name:        Add-DaDatabaseIndex
 Author:      Jaap Brasser
-Version:     1.0.0
+Version:     1.1.0
 DateCreated: 2016-04-25
-DateUpdated: 2016-04-25
+DateUpdated: 2016-08-09
 Blog:        http://www.jaapbrasser.com
 
 .EXAMPLE
@@ -84,12 +105,25 @@ Add-DaDatabaseIndex
 
 Description:
 Will create the database index that can resolve cpu load issues on the system
+
+.EXAMPLE
+Add-DaDatabaseIndex -ConnectionTimeout 600
+
+Description:
+Will create the database index that can resolve cpu load issues on the system and set the timeout to ten minutes. This gives the server more time to complete the request.
 #>
     [cmdletbinding(SupportsShouldProcess=$true)]
-    param()
+    param(
+        [int] $ConnectionTimeout
+    )
 
     process {
         $ConnectionString = 'Server=np:\\.\pipe\MICROSOFT##WID\tsql\query;Integrated Security=True;Initial Catalog=RaAcctDb;'
+        
+        if ($ConnectionTimeout) {
+            $ConnectionString = $ConnectionString -replace ';$',";Connection Timeout=$ConnectionTimeout;"
+        }
+        
         Write-Verbose "Connecting using: '$ConnectionString'"
 
         if ($PSCmdlet.ShouldProcess('.','Creating index')) {
@@ -100,7 +134,7 @@ Will create the database index that can resolve cpu load issues on the system
 
                 $Query = $Connection.CreateCommand()
                 $Query.CommandText = 'Use RaAcctDb',
-                                     'Create NonClustered Index IdxSessionTblSessionState on SessionTable (SessionState,ConnectionID)'  -join "`r`n"
+                                     'Create NonClustered Index IdxSessionTblSessionState on SessionTable (SessionState,ConnectionID)' -join "`r`n"
                 
                 Write-Verbose "Executing the following query:`r`n$($Query.CommandText)"
                 $Query.ExecuteReader()
@@ -119,12 +153,15 @@ Checks if the Direct Access Database has the index
 .DESCRIPTION
 This function connects to the Windows internal database in order to remove the index created by the Add-DataDatabaseIndex.
 
+.PARAMETER ConnectionTimeout
+This parameter indicates the timeout in seconds while trying to establish a connection before terminating the attempt and generating an error.
+
 .NOTES   
 Name:        Remove-DaDatabaseIndex
 Author:      Jaap Brasser
-Version:     1.0.0
-DateCreated: 2016-04-26
-DateUpdated: 2016-04-26
+Version:     1.1.0
+DateCreated: 2016-04-25
+DateUpdated: 2016-08-09
 Blog:        http://www.jaapbrasser.com
 
 .EXAMPLE
@@ -132,12 +169,25 @@ Remove-DaDatabaseIndex
 
 Description:
 Will remove the previously created database index
+
+.EXAMPLE
+Remove-DaDatabaseIndex -ConnectionTimeout 600
+
+Description:
+Will remove the previously created database index and set the timeout to ten minutes. This gives the server more time to complete the request.
 #>
     [cmdletbinding(SupportsShouldProcess=$true)]
-    param()
+    param(
+        [int] $ConnectionTimeout
+    )
 
     process {
         $ConnectionString = 'Server=np:\\.\pipe\MICROSOFT##WID\tsql\query;Integrated Security=True;Initial Catalog=RaAcctDb;'
+        
+        if ($ConnectionTimeout) {
+            $ConnectionString = $ConnectionString -replace ';$',";Connection Timeout=$ConnectionTimeout;"
+        }
+        
         Write-Verbose "Connecting using: '$ConnectionString'"
 
         if ($PSCmdlet.ShouldProcess('.','Removing index')) {
