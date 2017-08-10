@@ -1,10 +1,10 @@
 ﻿function Get-DaDatabaseIndexStatus {
 <#
 .Synopsis
-Checks if the Direct Access Database has the index
+Adds the Direct Access Database has the index to the internal database
 
 .DESCRIPTION
-This function connects to the Windows internal database in order to establish if the missing index that can cause high cpu load on the Server 2012R2 Direct Access server.
+This function connects to the Windows internal database in order to add the missing index. Not having that index can cause high cpu load on the Server 2012R2 Direct Access server.
 
 .PARAMETER ConnectionTimeout
 This parameter indicates the timeout in seconds while trying to establish a connection before terminating the attempt and generating an error.
@@ -148,10 +148,10 @@ Will create the database index that can resolve cpu load issues on the system an
 function Remove-DaDatabaseIndex {
 <#
 .Synopsis
-Checks if the Direct Access Database has the index
+Remove if the Direct Access Database index
 
 .DESCRIPTION
-This function connects to the Windows internal database in order to remove the index created by the Add-DataDatabaseIndex.
+This function connects to the Windows internal database in order to remove the index created by the Add-DataDatabaseIndex function.
 
 .PARAMETER ConnectionTimeout
 This parameter indicates the timeout in seconds while trying to establish a connection before terminating the attempt and generating an error.

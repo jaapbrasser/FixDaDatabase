@@ -1,32 +1,32 @@
-# Get-DaDatabaseIndexStatus
+# Remove-DaDatabaseIndex
 
 ## Synopsis
-Checks if the Direct Access Database has the index
+Remove if the Direct Access Database index
 
 ## Syntax
 
 ```
-Get-DaDatabaseIndexStatus [[-ConnectionTimeout] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-DaDatabaseIndex [[-ConnectionTimeout] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
-This function connects to the Windows internal database in order to add the missing index. Not having that index can cause high cpu load on the Server 2012R2 Direct Access server.
+This function connects to the Windows internal database in order to remove the index created by the Add-DataDatabaseIndex function.
 
 ## Examples
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-Get-DaDatabaseIndexStatus
+Remove-DaDatabaseIndexStatus
 ```
 
-Will retrieve the status of the index and the local computer name
+Will remove the previously created database index
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-Get-DaDatabaseIndexStatus -ConnectionTimeout 600
+Remove-DaDatabaseIndexStatus -ConnectionTimeout 600
 ```
 
-Will retrieve the status of the index and the local computer name and set the timeout to ten minutes. This gives the server more time to complete the request.
+Will remove the previously created database index and set the timeout to ten minutes. This gives the server more time to complete the request.
 
 ## Parameters
 
@@ -49,7 +49,7 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more nformation, see about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
 
 ## Notes
-Name:        Get-DaDatabaseIndexStatus
+Name:        Remove-DaDatabaseIndex
 Author:      Jaap Brasser
 Version:     1.1.0
 DateCreated: 2016-04-25

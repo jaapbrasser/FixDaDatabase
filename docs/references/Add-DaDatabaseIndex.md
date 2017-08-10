@@ -1,12 +1,12 @@
-# Get-DaDatabaseIndexStatus
+# Add-DaDatabaseIndex
 
 ## Synopsis
-Checks if the Direct Access Database has the index
+Adds the Direct Access Database has the index to the internal database
 
 ## Syntax
 
 ```
-Get-DaDatabaseIndexStatus [[-ConnectionTimeout] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Add-DaDatabaseIndex [[-ConnectionTimeout] <Int32>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## Description
@@ -16,17 +16,17 @@ This function connects to the Windows internal database in order to add the miss
 
 ### -------------------------- EXAMPLE 1 --------------------------
 ```
-Get-DaDatabaseIndexStatus
+Add-DaDatabaseIndex
 ```
 
-Will retrieve the status of the index and the local computer name
+Will create the database index that can resolve cpu load issues on the system
 
 ### -------------------------- EXAMPLE 2 --------------------------
 ```
-Get-DaDatabaseIndexStatus -ConnectionTimeout 600
+Add-DaDatabaseIndex -ConnectionTimeout 600
 ```
 
-Will retrieve the status of the index and the local computer name and set the timeout to ten minutes. This gives the server more time to complete the request.
+Will create the database index that can resolve cpu load issues on the system and set the timeout to ten minutes. This gives the server more time to complete the request.
 
 ## Parameters
 
@@ -49,7 +49,7 @@ Accept wildcard characters: False
 This cmdlet supports the common parameters: Verbose, Debug, ErrorAction, ErrorVariable, WarningAction, WarningVariable, OutBuffer, PipelineVariable, and OutVariable. For more nformation, see about_CommonParameters (https:/go.microsoft.com/fwlink/?LinkID=113216).
 
 ## Notes
-Name:        Get-DaDatabaseIndexStatus
+Name:        Get-DaDatabaseIndex
 Author:      Jaap Brasser
 Version:     1.1.0
 DateCreated: 2016-04-25
